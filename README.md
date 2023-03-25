@@ -37,8 +37,9 @@ Te enseño el uso de los comandos principales:
 ## Sintaxis básica de Rust
  
 #### Anatomía de un programa Rust
+----------
 
-- La función `main` es especial, es lo primero que se ejecuta en cualquier programa de Rust, puedes añadir parametros insertandolos en los `()`.
+- La función `main` es especial, es lo primero que se ejecuta en cualquier programa de Rust, puedes añadir parámetros insertándolos en los `()`.
 - Las funciones se crean usando `fn`.
 - Los bloques de código se cierran usando `;`.
 - Los Strings de Rust son de codificación UTF-8 y pueden contener cualquier carácter Unicode.
@@ -60,3 +61,93 @@ hemos añadido un nuevo concepto es esta linea que es `println!()`, esta es la e
 <br>
 
 #### Hola Cargo
+----------
+
+`cargo` es un gestor de paquetes embebido dentro de rust. Muchos Rustaceans usan este herramienta para manipular sus proyectos ya que `cargo` gestiona muchas tareas por ti, ya sean construir tu código, descargar librerías en los que tu código dependa y construir estas librerías. (llamamos librerías a todo aquello que tu código dependa)
+
+Vamos a crear un nuevo proyecto rust usando el comando `cargo new <example_name>`
+
+```cmd:
+$ cargo new hello_cargo
+$ cd hello_cargo
+```
+
+Al ejecutar esos comandos, hemos creado un proyecto rust y hemos entrado en el, una vez dentro podremos ver 2 ficheros y un directorio.
+<br>
+
+###### Cargo.toml
+este fichero es una pieza cable de nuestro proyecto. Este fichero esta escrito en el formato TOML (Tom’s Obvious, Minimal Language),que es el formato de configuraciones de cargos, abre este fichero para ver que contiene.
+
+- `[package]` Es la primera sección que nos encontramos y esta indica que es un paquete de configuración, mientras mas información añadamos, se añadirán mas secciones.
+<br>
+
+- Las siguientes tres lineas indicas la cofiguración de cargo que necesita para compilar: el nombre del proyecto, las version y la `edición` de Rust que usamos. Hablaremos de la `edición` más adelante
+<br>
+
+- La ultima linea es `[dependencies]`, es el comienzo de las lista de cualquier dependencia que añadas al proyecto. En rust, los paquetes de código son llamados crates.
+<br>
+
+
+ 
+###### src/main.rs
+Cargo ha creado un programa "¡"Hola, mundo!" como tal cual vimos en una explicación anterior.
+
+Cargo espero que todo el codigo fuente viva dentro de la carpeta `src/`. la raiz del proyecto esta reservada para ficheros como README, licencias, ficheros de configuración y todo aquello no relacionado al código.
+
+Si has empezado un proyecto rust que no usa Cargo, puedes convertirlo en uno que lo usa, simplemente tienes que mover el código fuente al directorio `src/` y crear un `Cargo.toml` apropiado a la configuración 
+<br>
+
+> contenido del fichero generado por el comando `cargo new hello_cargo`
+
+```rust:
+    fn main() {
+        println!("Hello, World!")
+    }
+```
+<br>
+
+###### Building and Running de un proyecto Cargo
+
+Vamos a explicar la diferencia entre `build` y `run`, para ello vamos a usar el proyecto hello_cargo que creamos antes, vamos a ejecutar el siguiente comando para construir el proyecto:
+```cmd:
+$ cargo build
+   Compiling hello_cargo v0.1.0 (C:/projects/hello_cargo)
+    Finished dev [unoptimized + debuginfo] target(s) in 2.85 secs
+```
+
+Este comando crear un fichero ejecutable en la siguiente en la ruta `target/debug/hello_cargo` (en windows genera `target\debug\hello_cargo.exe`) donde hayas generado el proyecto. Por defecto cargo genera un `debug build`, puedes ejecutar el archivo compilado usando este comando:
+
+```cmd:
+$ ./target/debug/hello_cargo # or .\target\debug\hello_cargo.exe on Windows
+Hello, world!
+```
+<br>
+
+Si todo va bien, debería pintar por pantalla "Hello, world!", ejecutar `cargo build` por primera vez hace que `cargo` genere un fichero en la raíz llamado `Cargo.lock`. Este fichero sirve para llevar un seguimiento de las versiones de las dependencias que tenemos instaladas, este fichero se actualiza automáticamente cada vez que el proyecto es compilado y no es necesario su manipulación. 
+
+Hay otra manera más rápida de conseguir el output del proyecto, usando el siguiente comando:
+
+```cmd:
+$ cargo run
+   Compiling hello_cargo v0.1.0 (C:/projects/hello_cargo)
+    Finished dev [unoptimized + debuginfo] target(s) in 0.33 secs
+     Running `target/debug/hello_cargo`
+Hello, world!
+```
+<br>
+
+Cargo tambien nos proporciona el comando `cargo check`. Este comando comprueba que se pueda compilar el código perfectamente y crear un ejecutable del mismo:
+
+```cmd:
+$ cargo check
+   Checking hello_cargo v0.1.0 (file:///projects/hello_cargo)
+    Finished dev [unoptimized + debuginfo] target(s) in 0.32 secs
+```
+
+`cargo check` aveces, este comando en mucho mas rápido que `cargo build` ya que nos saltamos el paso de crear el binario, y podemos comprobar que el estado del código es correcto. Usar `cargo check` a medida que vamos desarrollando nuestro código es una buena manera de saber si nuestro proyecto sigue compilando tras los cambios añadidos, muchos Rustaceans usan este comando como buena practica.
+
+> Por añadir, los comandos de cargo son los mismos independientemente del SO en el que este desarrollando el código.
+
+<br>
+
+###### Build para producción
