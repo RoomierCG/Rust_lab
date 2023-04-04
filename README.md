@@ -147,6 +147,8 @@ $ cargo check
 `cargo check` aveces, este comando en mucho mas rápido que `cargo build` ya que nos saltamos el paso de crear el binario, y podemos comprobar que el estado del código es correcto. Usar `cargo check` a medida que vamos desarrollando nuestro código es una buena manera de saber si nuestro proyecto sigue compilando tras los cambios añadidos, muchos Rustaceans usan este comando como buena practica.
 
 > Por añadir, los comandos de cargo son los mismos independientemente del SO en el que este desarrollando el código.
+>
+> Podemos acceder a documentación de las dependencias que hemos descargado mediante el comando `cargo doc --open`
 
 <br>
 
