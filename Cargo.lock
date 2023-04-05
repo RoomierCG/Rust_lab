@@ -20,6 +20,13 @@ dependencies = [
 ]
 
 [[package]]
+name = "guessing_game"
+version = "0.1.0"
+dependencies = [
+ "rand",
+]
+
+[[package]]
 name = "libc"
 version = "0.2.140"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -65,7 +72,7 @@ dependencies = [
 name = "rust_lab"
 version = "0.1.0"
 dependencies = [
- "rand",
+ "guessing_game",
 ]
 
 [[package]]
