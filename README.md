@@ -1,5 +1,4 @@
 # Introducción a Rust
-----------
 
 El ecosistema de Rust esta compuesto:
 
@@ -12,7 +11,8 @@ El ecosistema de Rust esta compuesto:
 - **rustup**: herramienta de rust que se usa para instalar y actualizar `rustc` y `cargo` cuando salen nuevas versiones, adicionalmente, también descarga la documentación de librerías estándar. Puedes tener varias versiones de rust y cambiar entre ellas con esta herramienta. Para consultar una pequeña introducción a rust puedes usar el siguiente comando `rustup docs --book`
 <br>
 
-#### Usando Cargo
+## Usando Cargo
+----------
 
 Nuestra herramienta principal para trabajar sera cargo, su uso esta estandarizado por los desarrolladores ya que contiene las herramientas para trabajar con rust. 
 
@@ -36,7 +36,7 @@ Te enseño el uso de los comandos principales:
 
 ## Sintaxis básica de Rust
  
-#### Anatomía de un programa Rust
+### Anatomía de un programa Rust
 ----------
 
 - La función `main` es especial, es lo primero que se ejecuta en cualquier programa de Rust, puedes añadir parámetros insertándolos en los `()`.
@@ -60,7 +60,7 @@ hemos añadido un nuevo concepto es esta linea que es `println!()`, esta es la e
 3. Veras `¡Hola, mundo!` string, pasamos este string como argumento a `println!()` y este es pintado en pantalla
 <br>
 
-#### Hola Cargo
+### Hola Cargo
 ----------
 
 `cargo` es un gestor de paquetes embebido dentro de rust. Muchos Rustaceans usan este herramienta para manipular sus proyectos ya que `cargo` gestiona muchas tareas por ti, ya sean construir tu código, descargar librerías en los que tu código dependa y construir estas librerías. (llamamos librerías a todo aquello que tu código dependa)
@@ -75,7 +75,7 @@ $ cd hello_cargo
 Al ejecutar esos comandos, hemos creado un proyecto rust y hemos entrado en el, una vez dentro podremos ver 2 ficheros y un directorio.
 <br>
 
-###### **Cargo.toml**
+#### **Cargo.toml**
 este fichero es una pieza cable de nuestro proyecto. Este fichero esta escrito en el formato TOML (Tom’s Obvious, Minimal Language),que es el formato de configuraciones de cargos, abre este fichero para ver que contiene.
 
 - `[package]` Es la primera sección que nos encontramos y esta indica que es un paquete de configuración, mientras mas información añadamos, se añadirán mas secciones.
@@ -89,7 +89,7 @@ este fichero es una pieza cable de nuestro proyecto. Este fichero esta escrito e
 
 
  
-###### **src/main.rs**
+#### **src/main.rs**
 Cargo ha creado un programa "¡"Hola, mundo!" como tal cual vimos en una explicación anterior.
 
 Cargo espero que todo el código fuente viva dentro de la carpeta `src/`. la raíz del proyecto esta reservada para ficheros como README, licencias, ficheros de configuración y todo aquello no relacionado al código.
@@ -106,7 +106,7 @@ Si has empezado un proyecto rust que no usa Cargo, puedes convertirlo en uno que
 ```
 <br>
 
-###### Building and Running de un proyecto Cargo
+#### Building and Running de un proyecto Cargo
 
 Vamos a explicar la diferencia entre `build` y `run`, para ello vamos a usar el proyecto hello_cargo que creamos antes, vamos a ejecutar el siguiente comando para construir el proyecto:
 ```cmd:
@@ -154,7 +154,6 @@ $ cargo check
 <br>
 
 ## Conceptos comunes de la programación
-----------
 
 En esta sección se cubrirán conceptos que aparecen en casi todos los lenguajes de programación y como estos funcionan en Rust. Muchos lenguajes de programación tienen en común su núcleo. Ninguno de estos conceptos presentes en esta sección son únicos de Rust, pero hablaremos de ellos mas adelante y las usos alrededor de estos mismos.
 
@@ -164,7 +163,8 @@ En esta sección se cubrirán conceptos que aparecen en casi todos los lenguajes
 
 <br>
 
-#### Variables y mutabilidad
+### Variables y mutabilidad
+----------
 
 Por defecto las variables en rust son inmutables. Este es uno de los muchos empujones que Rust te da para que escribas tu código de forma que aproveches la seguridad y la fácil concurrencia que Rust ofrece.
 
@@ -234,7 +234,7 @@ The value of x is: 6
 ```
 <br>
 
-###### **Constantes**
+#### **Constantes**
 
 Como las variables inmutables, las constantes son valores asignados que no están permitidos cambiar, existen unas diferencias entre constantes y variables.
 
@@ -252,7 +252,7 @@ Fíjate en como se ha escrito el nombre de la variable `TRES_HORAS_EN_SEGUNDOS`,
 <br>
 
 
-###### **Shadowing**
+#### **Shadowing**
 
 En Rust puedes declarar una nueva variable con el mismo nombre de una existente, algo asi:
 
@@ -331,3 +331,61 @@ For more information about this error, try `rustc --explain E0308`.
 error: could not compile `variables` due to previous error
 ```
 <br>
+
+### Tipos de datos
+----------
+
+Veremos dos subconjuntos de tipos de datos: scalar (escalares) y compound (compuestos), acuérdate de que Rust es un lenguaje tipado estático, lo que significa que necesita saber todos los tipos de datos en tiempo de compilación. Rust puede deducir que tipo queremos usar en base al valor asignado y como se use.
+
+#### **Scalares**
+
+Un tipo de datos escalar representa un **solo** valor, Rust tiene cuatro tipos escalares primarios: Integers, floating-point, numbers, Booleans y characters.
+
+##### Tipo Integer
+
+Un número entero es un número sin componente fraccionario. Tomemos por el ejemplo lo siguiente el tipo **u32**, la declaración de este tipo indica que el valor asociado deberá ser unsigned integer ( los tipos signed integers empiezan por **i** en vez de **u**) que ocupa 32 bits de espacio. En la siguiente tabla mostraremos los tipos enteros incorporados en Rust. Podremos usar cualquiera de estas variaciones para declarar un integer.
+
+<br>
+
+| **Tamaño**      | **Signed**      | **Unsigned**    |
+|:----:           |:----:           |:----:           |
+| 8-bits          | i8              | u8              |
+| 16-bits         | i16             | u16             |
+| 32-bits         | i32             | u32             |
+| 64-bits         | i64             | u64             |
+| 128-bits        | i128            | u128            |
+| arch            | isize           | usize           |
+
+<br>
+
+> Te voy a adjuntar los rangos de valores para cada tipo de integer:
+>
+>- **8 - bits**            
+>   - **i8**  -128 a 127
+>   - **u8**  0 a 255
+>
+>- **16 - bits**
+>   - **i16**  -32,768 a 32,767
+>   - **u16**  0 a 65,535
+>
+>- **32 - bits**
+>   - **i32**  -2,147,483,648 a 2,147,483,647
+>   - **u32**  0 a 4,294,967,295
+>
+>- **64 - bits**
+>   - **i64**  -9,223,372,036,854,775,808 a 9,223,372,036,854,775,807
+>   - **u64**  0 a 18,446,744,073,709,551,615
+>
+>- **128 - bits**
+>   - **i128**  -170,141,183,460,469,231,731,687,303,715,884,105,728 a 170,141,183,460,469,231,731,687,303,715,884,105,727
+>   - **u128**  0 a 340,282,366,920,938,463,463,374,607,431,768,211,455
+
+<br>
+
+Cada variación puede ser signed o unsigned y tienen un tamaño explicito, *signed* o *unsigned* hace referencia a que es exista la posibilidad de numero negativos, en otras palabras, Si tus datos pueden ser tanto positivos como negativos entonces el tipo que usaras sera **signed**, en cambio si solo tienes positivos es **unsigned**.
+
+Además, los tipos isize y usize dependen de la arquitectura del ordenador en el que se ejecuta el programa, que se indica en la tabla como "arch": 64 bits si estás en una arquitectura de 64 bits y 32 bits si estás en una arquitectura de 32 bits.
+
+Puedes escribir integers de cualquier forma mostrada en la siguiente tabla. Es posible que desees especificar explícitamente el tipo de número que deseas utilizar. 
+
+Para hacer esto, puedes agregar un "sufijo de tipo" al literal integer, por ejemplo `let number = 57u8`. Ademas puedes usar _ como un separador visual para hacer el numero mas fácil de leer, por ejemplo `let number = 1_000` es lo mismo que `let number = 1000`
