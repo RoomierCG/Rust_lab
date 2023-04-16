@@ -417,9 +417,41 @@ Rust tiene dos tipos primitivos para números decimales llamados "Floating-Point
 Ejemplo de Floating-points en código:
 
 ```rust:
-    fn main () {
+    fn main() {
         let x := 2.0 //f64
 
         let y: f32 = 3.0 //f32
     }
 ```
+
+<br>
+
+##### Operaciones numéricas
+
+Rust es un lenguaje de programación que te permite realizar operaciones matemáticas básicas como suma, resta, multiplicación, división y obtener el resto de una división. Si divides dos números enteros, el resultado se trunca hacia cero, es decir, se redondea al número entero más cercano.
+
+En Rust, cada operación matemática se representa mediante un operador y se evalúa como un único valor que se almacena en una variable.
+
+Ejemplo de Operaciones numéricas:
+
+```rust:
+    fn main() {
+        // suma
+        let sum = 5 + 10; 
+
+        // resta
+        let difference = 95.5 - 4.3;
+
+        // multiplicación
+        let product = 4 * 30;
+
+        // division 
+        let quotient = 56.7 / 32.2;
+        let truncated = -5 / 3; // el resultado es -1
+
+        // resto
+        let remainder = 43 % 5;
+    }
+```
+
+<br>
