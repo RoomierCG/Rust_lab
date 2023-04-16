@@ -390,6 +390,7 @@ Puedes escribir integers de cualquier forma mostrada en la siguiente tabla. Es p
 
 Para hacer esto, puedes agregar un "sufijo de tipo" al literal integer, por ejemplo `let number = 57u8`. Ademas puedes usar _ como un separador visual para hacer el numero mas fácil de leer, por ejemplo `let number = 1_000` es lo mismo que `let number = 1000`
 
+<br>
 
 > **Desbordamiento de Integer**
 >
@@ -406,3 +407,19 @@ Para hacer esto, puedes agregar un "sufijo de tipo" al literal integer, por ejem
 >overflowing_* métodos: para devolver el valor y un booleano que indica si hubo desbordamiento.
 >
 > saturating_* métodos: para "saturar" el valor en los límites máximo y mínimo permitidos.
+
+<br>
+
+##### Tipo Floating-Point
+
+Rust tiene dos tipos primitivos para números decimales llamados "Floating-Point Types": **f32** y **f64**, de 32 y 64 bits respectivamente. El tipo predeterminado es **f64** porque en las CPUs modernas es casi tan rápido como **f32** pero es más preciso. Todos los tipos de números decimales tienen signo y se representan según el estándar **IEEE-754**. **f32** es de precisión simple y **f64** es de doble precisión.
+
+Ejemplo de Floating-points en código:
+
+```rust:
+    fn main () {
+        let x := 2.0 //f64
+
+        let y: f32 = 3.0 //f32
+    }
+```
