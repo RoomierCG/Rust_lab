@@ -337,7 +337,7 @@ error: could not compile `variables` due to previous error
 
 Veremos dos subconjuntos de tipos de datos: scalar (escalares) y compound (compuestos), acuérdate de que Rust es un lenguaje tipado estático, lo que significa que necesita saber todos los tipos de datos en tiempo de compilación. Rust puede deducir que tipo queremos usar en base al valor asignado y como se use.
 
-#### **Scalares**
+#### **Escalares**
 
 Un tipo de datos escalar representa un **solo** valor, Rust tiene cuatro tipos escalares primarios: Integers, floating-point, numbers, Booleans y characters.
 
@@ -389,3 +389,20 @@ Además, los tipos isize y usize dependen de la arquitectura del ordenador en el
 Puedes escribir integers de cualquier forma mostrada en la siguiente tabla. Es posible que desees especificar explícitamente el tipo de número que deseas utilizar. 
 
 Para hacer esto, puedes agregar un "sufijo de tipo" al literal integer, por ejemplo `let number = 57u8`. Ademas puedes usar _ como un separador visual para hacer el numero mas fácil de leer, por ejemplo `let number = 1_000` es lo mismo que `let number = 1000`
+
+
+> **Desbordamiento de Integer**
+>
+> El desbordamiento de Integer es cuando un número es demasiado grande para ser almacenado en un tipo de dato determinado. En Rust, si intentas asignar un valor fuera del rango permitido a una variable, como 256 en un tipo u8 que sólo acepta valores entre 0 y 255, ocurrirá un desbordamiento de integer. Esto puede resultar en dos comportamientos diferentes, dependiendo del modo en que se compila el programa.
+>
+> Cuando se compila en modo depuración, Rust incluye verificaciones de desbordamiento de integer que provocan que el programa termine con un error. En cambio, cuando se compila en modo release con la bandera --release, Rust no incluye verificaciones de desbordamiento de integer y en su lugar aplica "two's complement wrapping", es decir, el valor mayor al máximo permitido "rebobina" y se establece como el valor mínimo permitido. Por ejemplo, en un tipo u8, el valor 256 se convierte en 0, el valor 257 en 1 y así sucesivamente.
+>
+> Es importante tener en cuenta que no se recomienda depender de este comportamiento de rebobinado para manejar el desbordamiento de integer. Para manejar explícitamente la posibilidad de desbordamiento, Rust proporciona varias familias de métodos en su biblioteca estándar para tipos numéricos primitivos:
+>
+> wrapping_* métodos: para realizar un rebobinado de integers en todos los modos.
+>
+>checked_* métodos: para devolver el valor None si hay desbordamiento.
+>
+>overflowing_* métodos: para devolver el valor y un booleano que indica si hubo desbordamiento.
+>
+> saturating_* métodos: para "saturar" el valor en los límites máximo y mínimo permitidos.
