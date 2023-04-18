@@ -263,7 +263,7 @@ En Rust puedes declarar una nueva variable con el mismo nombre de una existente,
     }
 ```
 
-Los Restaceans dicen que la primera variable ha sido shadowed por la segunda variable. Esto significa que la segunda variable es que el compilador vera cuando uses el nombre de la variable.
+Los Rustaceans dicen que la primera variable ha sido shadowed por la segunda variable. Esto significa que la segunda variable es que el compilador vera cuando uses el nombre de la variable.
 
 En efecto, la segunda variable eclipsa la primera, asumiendo cualquier uso del nombre de la variable hasta que ella misma sea eclipsada o el scope termine. Añadamos mas cosas al código anterior:
 
@@ -451,6 +451,20 @@ Ejemplo de Operaciones numéricas:
 
         // resto
         let remainder = 43 % 5;
+    }
+```
+
+<br>
+
+##### Tipo booleano
+
+
+En Rust, como en la mayoría de los lenguajes de programación, el tipo Booleano tiene dos valores posibles: `true` y `false`. Los valores Booleanos en Rust ocupan un byte de tamaño. Para especificar el tipo Booleano en Rust, se utiliza la palabra bool. Por ejemplo:
+
+```rust:
+    fn main() {
+        let x = true;
+        let z: bool = false; //Tiene explícitamente la anotación
     }
 ```
 
