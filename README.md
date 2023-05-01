@@ -456,7 +456,7 @@ Ejemplo de Operaciones numéricas:
 
 <br>
 
-##### Tipo booleano
+##### Tipo Booleano
 
 En Rust, como en la mayoría de los lenguajes de programación, el tipo Booleano tiene dos valores posibles: `true` y `false`. Los valores Booleanos en Rust ocupan un byte de tamaño. Para especificar el tipo Booleano en Rust, se utiliza la palabra bool. Por ejemplo:
 
@@ -471,7 +471,7 @@ En Rust, como en la mayoría de los lenguajes de programación, el tipo Booleano
 
 ##### Tipo Character
 
-El tipo char de Rust es el tipo alfabético más primitivo del lenguaje. Estos son algunos ejemplos de declaración de valores char:
+El tipo `char` de Rust es el tipo alfabético más primitivo del lenguaje. Estos son algunos ejemplos de declaración de valores `char`:
 
 ```rust:
     fn main() {
@@ -480,7 +480,60 @@ El tipo char de Rust es el tipo alfabético más primitivo del lenguaje. Estos s
 }
 ```
 
-Debemos especificar literales de caracteres en Rust usando comillas simples, mientras que los literales de cadenas usan comillas dobles. El tipo char en Rust tiene un tamaño de cuatro bytes y representa un valor escalar Unicode, lo que significa que puede representar mucho más que solo ASCII. Letras acentuadas, caracteres chinos, japoneses y coreanos, emojis y espacios de ancho cero son valores válidos para char en Rust. Los valores escalares Unicode van desde U+0000 hasta U+D7FF y desde U+E000 hasta U+10FFF. Sin embargo, el concepto de "carácter" no existe realmente en Unicode, por lo que tu intuición humana puede no coincidir con la definición de char en Rust. Profundizaremos en este tema más adelante
+Debemos especificar literales de caracteres en Rust usando comillas simples, mientras que los literales de cadenas usan comillas dobles. El tipo `char` en Rust tiene un tamaño de cuatro bytes y representa un valor escalar Unicode, lo que significa que puede representar mucho más que solo ASCII. Letras acentuadas, caracteres chinos, japoneses y coreanos, emojis y espacios de ancho cero son valores válidos para `char` en Rust. Los valores escalares Unicode van desde `U+0000` hasta `U+D7FF` y desde `U+E000` hasta `U+10FFF`. Sin embargo, el concepto de "carácter" no existe realmente en Unicode, por lo que tu intuición humana puede no coincidir con la definición de `char` en Rust. Profundizaremos en este tema más adelante
 
 <br>
 
+#### **Compuestos**
+
+Los tipos compuestos pueden agrupar múltiples valores en un solo tipo. Rust tiene dos tipos compuestos primitivos: tuplas y matrices.
+
+##### Tipo Tupla
+
+Una *tupla* es una forma general de agrupar varios valores con diferentes tipos en un solo tipo compuesto. Las tuplas tienen una longitud fija: una vez declaradas, no pueden aumentar ni disminuir de tamaño.
+
+Creamos una tupla escribiendo una lista de valores separados por comas dentro de paréntesis. Cada posición en la tupla tiene un tipo, y los tipos de los diferentes valores en la tupla no tienen que ser iguales. En este ejemplo, hemos añadido anotaciones de tipo opcionales:
+
+```rust:
+fn main() {
+    let tup: (i32, f64, u8) = (500, 6.4, 1);
+}
+```
+
+<br>
+
+La variable `tup` se vincula a la tupla completa porque una tupla se considera un solo elemento compuesto. Para obtener los valores individuales de una tupla, podemos utilizar coincidencia de patrones (pattern matching) para desestructurar un valor de tupla, de esta manera:
+
+```rust:
+fn main() {
+    let tup = (500, 6.4, 1);
+
+    let (x, y, z) = tup;
+
+    println!("The valor de y es: {y}")
+}
+```
+
+<br>
+
+Este programa primero crea una tupla y la vincula a la variable `tup`. Luego, utiliza un patrón con `let` para convertir la tupla en tres variables separadas, `x`, `y`, `z`. Esto se llama desestructuración porque descompone la tupla en tres partes. Finalmente, el programa imprime el valor de `y`, que es `6.4.`
+
+También podemos acceder a un elemento de la tupla directamente utilizando un punto (`.`) seguido del índice del valor que queremos acceder. Por ejemplo:
+
+```rust:
+    fn main() {
+    let x: (i32, f64, u8) = (500, 6.4, 1);
+
+    let quinientos = x.0;
+
+    let seis_punto_cuatro = x.1;
+
+    let uno = x.2;
+}
+```
+
+<br>
+
+Este programa crea la tupla `x` y luego accede a cada elemento de la tupla usando sus respectivos índices. Como en la mayoría de los lenguajes de programación, el primer índice en una tupla es 0.
+
+La tupla sin valores tiene un nombre especial, unidad (unit). Este valor y su tipo correspondiente se escriben ambos como `()` y representan un valor vacío o un tipo de retorno vacío. Las expresiones devuelven implícitamente el valor de la unidad si no devuelven ningún otro valor.
