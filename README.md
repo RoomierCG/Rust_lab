@@ -47,10 +47,10 @@ Te enseño el uso de los comandos principales:
 
 Veamos un ejemplo usando estos conceptos escribiendo un clásico, ¡Hola, mundo!
 
-```rust:
-    fn main() {
-        println!("¡Hola, mundo!")
-    }
+```rust
+fn main() {
+    println!("¡Hola, mundo!")
+}
 ```
 
 Hemos añadido un nuevo concepto es esta línea que es `println!()`, esta es la encargada de pintar en nuestra consola aquello que le insertemos, ahora expliquemos unas cosas importantes.
@@ -67,7 +67,7 @@ Hemos añadido un nuevo concepto es esta línea que es `println!()`, esta es la 
 
 Vamos a crear un nuevo proyecto rust usando el comando `cargo new <example_name>`
 
-```cmd:
+```text
 $ cargo new hello_cargo
 $ cd hello_cargo
 ```
@@ -99,17 +99,17 @@ Si has empezado un proyecto rust que no usa Cargo, puedes convertirlo en uno que
 
 > Contenido del fichero generado por el comando `cargo new hello_cargo`
 
-```rust:
-    fn main() {
-        println!("Hello, World!")
-    }
+```rust
+fn main() {
+    println!("Hello, World!")
+}
 ```
 <br>
 
 #### Building and Running de un proyecto Cargo
 
 Vamos a explicar la diferencia entre `build` y `run`, para ello vamos a usar el proyecto hello_cargo que creamos antes, vamos a ejecutar el siguiente comando para construir el proyecto:
-```cmd:
+```text
 $ cargo build
    Compiling hello_cargo v0.1.0 (C:/projects/hello_cargo)
     Finished dev [unoptimized + debuginfo] target(s) in 2.85 secs
@@ -117,7 +117,7 @@ $ cargo build
 
 Este comando crear un fichero ejecutable en la siguiente en la ruta `target/debug/hello_cargo` (en windows genera `target\debug\hello_cargo.exe`) donde hayas generado el proyecto. Por defecto cargo genera un `debug build`, puedes ejecutar el archivo compilado usando este comando:
 
-```cmd:
+```text
 $ ./target/debug/hello_cargo # or .\target\debug\hello_cargo.exe on Windows
 Hello, world!
 ```
@@ -127,7 +127,7 @@ Si todo va bien, debería pintar por pantalla "Hello, world!", ejecutar `cargo b
 
 Hay otra manera más rápida de conseguir el output del proyecto, usando el siguiente comando:
 
-```cmd:
+```text
 $ cargo run
    Compiling hello_cargo v0.1.0 (C:/projects/hello_cargo)
     Finished dev [unoptimized + debuginfo] target(s) in 0.33 secs
@@ -138,7 +138,7 @@ Hello, world!
 
 Cargo también nos proporciona el comando `cargo check`. Este comando comprueba que se pueda compilar el código perfectamente y crear un ejecutable del mismo:
 
-```cmd:
+```text
 $ cargo check
    Checking hello_cargo v0.1.0 (file:///projects/hello_cargo)
     Finished dev [unoptimized + debuginfo] target(s) in 0.32 secs
@@ -170,19 +170,19 @@ Por defecto las variables en rust son inmutables. Este es uno de los muchos empu
 
 Sin embargo, puedes crear tus variables mutables, vamos a explorar como y por qué Rust te anima a tener inmutabilidad. Cuando una variable es inmutable, una vez que su valor está asociado al nombre este no puede ser modificado. Para mostrar esto revisemos el siguiente código:
 
-```rust:
-    fn main() {
-        let x = 5;
-        println!("El valor de x es: {x}");
-        x = 6;
-        println!("El valor de x es: {x}");
-    }
+```rust
+fn main() {
+    let x = 5;
+    println!("El valor de x es: {x}");
+    x = 6;
+    println!("El valor de x es: {x}");
+}
 ```
 <br>
 
 Si guardas y ejecutas el programa usando `cargo run`. Deberías recibir un mensaje de error con respecto a un error de inmutabilidad, como se muestra en esta salida
 
-```cmd:
+```text
 $ cargo run
    Compiling variables v0.1.0 (file:///projects/variables)
 error[E0384]: cannot assign twice to immutable variable `x`
@@ -212,19 +212,19 @@ Pero la mutabilidad puede ser muy útil, y puede hacer que el código sea más c
 
 Cambiemos el anterior código para hacerlo funcionar:
 
-```rust:
-    fn main() {
-        let mut x = 5;
-        println!("The value of x is: {x}");
-        x = 6;
-        println!("The value of x is: {x}");
-    }
+```rust
+fn main() {
+    let mut x = 5;
+    println!("The value of x is: {x}");
+    x = 6;
+    println!("The value of x is: {x}");
+}
 ```
 <br>
 
 Si ejecutamos ahora el código obtendremos lo siguiente:
 
-```cmd:
+```text
 $ cargo run
    Compiling variables v0.1.0 (file:///projects/variables)
     Finished dev [unoptimized + debuginfo] target(s) in 0.30s
@@ -243,8 +243,8 @@ Primero, no está permitido el uso de `mut` con las constantes. Las constantes n
 Las constantes pueden ser declaradas en cualquier scope, incluso el global, lo que las hace útiles para almacenar valores que se usaran en varias piezas de código. La última diferencia es que las constantes solamente pueden fijarse a una expresión constante, no al resultado de un valor que solo podría calcularse en tiempo de ejecución.
 
 Un ejemplo de ello es lo siguiente:
-```rust:
-    const TRES_HORAS_EN_SEGUNDOS: u32 = 60 * 60 * 3;
+```rust
+const TRES_HORAS_EN_SEGUNDOS: u32 = 60 * 60 * 3;
 ```
 <br>
 
@@ -256,35 +256,35 @@ Fíjate en como se ha escrito el nombre de la variable `TRES_HORAS_EN_SEGUNDOS`,
 
 En Rust puedes declarar una nueva variable con el mismo nombre de una existente, algo asi:
 
-```rust:
-    fn main() {
-        let x = 5;
-        let x = x + 1;
-    }
+```rust
+fn main() {
+    let x = 5;
+    let x = x + 1;
+}
 ```
 
 Los Rustaceans dicen que la primera variable ha sido shadowed por la segunda variable. Esto significa que la segunda variable es que el compilador verá cuando uses el nombre de la variable.
 
 En efecto, la segunda variable eclipsa la primera, asumiendo cualquier uso del nombre de la variable hasta que ella misma sea eclipsada o el scope termine. Añadamos más cosas al código anterior:
 
-```rust:
-    fn main() {
-        let x = 5;
-        let x = x + 1;
-        
-        {
-            let x = x * 2;
-            println!("El valor de x dentro scope interno es: {x}");
-        }
-
-        println!("El valor de x es: {x}");
+```rust
+fn main() {
+    let x = 5;
+    let x = x + 1;
+    
+    {
+        let x = x * 2;
+        println!("El valor de x dentro scope interno es: {x}");
     }
+
+    println!("El valor de x es: {x}");
+}
 ```
 <br>
 
 En este código el programa asigna a la variable `x` el valor `5`. Después crea otra vez una nueva variable con el nombre `x` repitiendo `let x =` y le asignamos el valor original sumándole `1` dejando que el valor de `x` sea `6`. Después dentro de scope interno usamos otra vez `let` que vuelve hacer shadow a la variable `x` y crea una nueva variable, multiplicando el valor que tenía anteriormente multiplicado por `2` dejando un el resultado de `x` en `12`. Cuando el scope interno termina, el shadowing interno termina dejando el valor de `x` en `6`. Cuando ejecutamos este programa, el output debería ser el siguiente:
 
-```cmd:
+```text
 $ cargo run
    Compiling variables v0.1.0 (file:///projects/variables)
     Finished dev [unoptimized + debuginfo] target(s) in 0.31s
@@ -300,23 +300,27 @@ Usando `let` podemos crear una transformación en el valor de la variable siendo
 Otra diferencia con `mut` y shadowing es que estamos creando de una manera efectiva una nueva variable cuando usamos otra vez `let`, podemos cambiar el tipo de valor recusando el mismo nombre de la variable.
 Por ejemplo, digamos que nuestro programa le pregunta al usuario que cuantos espacios que se añadan entre un texto introduciendo caracteres de espacio, y luego queremos guardar ese input como un número.
 
-```rust:
+```rust
+fn main() {
     let spaces = "    ";
     let spaces = spaces.len();
+}
 ```
 <br>
 
 La primera variable `spaces` es de tipo String y la segunda variable `spaces` es de tipo número. Shadowing nos ahorramos tener que inventar nombres diferentes, como por ejemplo crear `spaces_str` y `spaces_num`; en vez de eso, podemos rehusar simplemente `spaces`. Pero si intentamos este mismo código pero usando el keyword `mut` no dará un error de compilación:
 
-```rust:
+```rust
+fn main() {
     let mut spaces = "    ";
     spaces = spaces.len();
+}
 ```
 <br>
 
 El error que se nos notificara era que no está permitido mutar las variables de tipos:
 
-```cmd:
+```text
 $ cargo run
    Compiling variables v0.1.0 (file:///projects/variables)
 error[E0308]: mismatched types
@@ -416,12 +420,12 @@ Rust tiene dos tipos primitivos para números decimales llamados "Floating-Point
 
 Ejemplo de Floating-points en código:
 
-```rust:
-    fn main() {
-        let x := 2.0 //f64
+```rust
+fn main() {
+    let x := 2.0 //f64
 
-        let y: f32 = 3.0 //f32
-    }
+    let y: f32 = 3.0 //f32
+}
 ```
 
 <br>
@@ -434,24 +438,24 @@ En Rust, cada operación matemática se representa mediante un operador y se eva
 
 Ejemplo de Operaciones numéricas:
 
-```rust:
-    fn main() {
-        // suma
-        let sum = 5 + 10; 
+```rust
+fn main() {
+    // suma
+    let sum = 5 + 10; 
 
-        // resta
-        let difference = 95.5 - 4.3;
+    // resta
+    let difference = 95.5 - 4.3;
 
-        // multiplicación
-        let product = 4 * 30;
+    // multiplicación
+    let product = 4 * 30;
 
-        // division 
-        let quotient = 56.7 / 32.2;
-        let truncated = -5 / 3; // el resultado es -1
+    // division 
+    let quotient = 56.7 / 32.2;
+    let truncated = -5 / 3; // el resultado es -1
 
-        // resto
-        let remainder = 43 % 5;
-    }
+    // resto
+    let remainder = 43 % 5;
+}
 ```
 
 <br>
@@ -460,11 +464,11 @@ Ejemplo de Operaciones numéricas:
 
 En Rust, como en la mayoría de los lenguajes de programación, el tipo Booleano tiene dos valores posibles: `true` y `false`. Los valores Booleanos en Rust ocupan un byte de tamaño. Para especificar el tipo Booleano en Rust, se utiliza la palabra bool. Por ejemplo:
 
-```rust:
-    fn main() {
-        let x = true;
-        let z: bool = false; //Tiene explícitamente la anotación
-    }
+```rust
+fn main() {
+    let x = true;
+    let z: bool = false; //Tiene explícitamente la anotación
+}
 ```
 
 <br>
@@ -473,8 +477,8 @@ En Rust, como en la mayoría de los lenguajes de programación, el tipo Booleano
 
 El tipo `char` de Rust es el tipo alfabético más primitivo del lenguaje. Estos son algunos ejemplos de declaración de valores `char`:
 
-```rust:
-    fn main() {
+```rust
+fn main() {
     let c = 'z';
     let z: char = 'ℤ'; // con anotación explícita de tipo
 }
@@ -494,7 +498,7 @@ Una *tupla* es una forma general de agrupar varios valores con diferentes tipos 
 
 Creamos una tupla escribiendo una lista de valores separados por comas dentro de paréntesis. Cada posición en la tupla tiene un tipo, y los tipos de los diferentes valores en la tupla no tienen que ser iguales. En este ejemplo, hemos añadido anotaciones de tipo opcionales:
 
-```rust:
+```rust
 fn main() {
     let tup: (i32, f64, u8) = (500, 6.4, 1);
 }
@@ -504,7 +508,7 @@ fn main() {
 
 La variable `tup` se vincula a la tupla completa porque una tupla se considera un solo elemento compuesto. Para obtener los valores individuales de una tupla, podemos utilizar coincidencia de patrones (pattern matching) para desestructurar un valor de tupla, de esta manera:
 
-```rust:
+```rust
 fn main() {
     let tup = (500, 6.4, 1);
 
@@ -520,8 +524,8 @@ Este programa primero crea una tupla y la vincula a la variable `tup`. Luego, ut
 
 También podemos acceder a un elemento de la tupla directamente utilizando un punto (`.`) seguido del índice del valor que queremos acceder. Por ejemplo:
 
-```rust:
-    fn main() {
+```rust
+fn main() {
     let x: (i32, f64, u8) = (500, 6.4, 1);
 
     let quinientos = x.0;
@@ -537,3 +541,115 @@ También podemos acceder a un elemento de la tupla directamente utilizando un pu
 Este programa crea la tupla `x` y luego accede a cada elemento de la tupla usando sus respectivos índices. Como en la mayoría de los lenguajes de programación, el primer índice en una tupla es 0.
 
 La tupla sin valores tiene un nombre especial, unidad (unit). Este valor y su tipo correspondiente se escriben ambos como `()` y representan un valor vacío o un tipo de retorno vacío. Las expresiones devuelven implícitamente el valor de la unidad si no devuelven ningún otro valor.
+
+<br>
+
+##### Tipo Array
+
+Otra forma de tener una colección de múltiples valores es con un *array* (array). A diferencia de una tupla, todos los elementos de un array deben tener el mismo tipo. A diferencia de los arrays en algunos otros lenguajes, los arrays en Rust tienen una longitud fija.
+
+Escribimos los valores en un array como una lista separada por comas dentro de corchetes:
+
+```rust
+fn main() {
+    let arr = [1, 2, 3, 4, 5];
+}
+```
+
+<br>
+
+Los arrays son útiles cuando deseas que tus datos se asignen en la stack (pila) en lugar del heap (montón) o cuando deseas asegurarte de tener siempre un número fijo de elementos. Un array no es tan flexible como el tipo vector, sin embargo. Un vector es un tipo de colección similar proporcionado por la biblioteca estándar que puede crecer o reducirse en tamaño. Si no estás seguro de si usar un array o un vector, lo más probable es que debas usar un vector.
+
+Sin embargo, los arrays son más útiles cuando sabes que el número de elementos no necesitará cambiar. Por ejemplo, si estuvieras utilizando los nombres de los meses en un programa, probablemente usarías un array en lugar de un vector porque sabes que siempre contendrá 12 elementos:
+
+```rust
+fn main() {
+    let meses =  ["enero", "febrero", "marzo", "abril", "mayo", "junio", "julio",
+        "agosto", "septiembre", "octubre", "noviembre", "diciembre"];
+}
+```
+
+<br>
+
+Escribes el tipo de un array usando corchetes con el tipo de cada elemento, un punto y coma, y luego el número de elementos en el array, de la siguiente manera:
+
+```rust
+fn main() {
+    let arr: [i32; 5] = [1, 2, 3, 4, 5];
+}
+```
+
+Aquí, i32 es el tipo de cada elemento. Después del punto y coma, el número 5 indica que el array contiene cinco elementos.
+
+<br>
+
+También puedes inicializar un array para que contenga el mismo valor para cada elemento especificando el valor inicial, seguido de un punto y coma, y luego la longitud del array entre corchetes, como se muestra aquí:
+
+```rust
+fn main () {
+    let arr: [3:5];
+}
+```
+
+El array llamado `arr` contendrá `5` elementos que inicialmente tendrán el valor 3. Esto es lo mismo que escribir `let a = [3, 3, 3, 3, 3];` pero de una manera más concisa.
+
+###### Acceso a los elementos del array
+
+Un array es un bloque único de memoria de un tamaño conocido y fijo que se puede asignar en el stack (pila). Puedes acceder a los elementos de un array utilizando indexación, de la siguiente manera:
+
+```rust
+fn main() {
+    let arr = [1, 2, 3, 4, 5];
+    
+    let primero = arr[0];
+    let segundo = arr[1];
+}
+```
+
+En este ejemplo, la variable llamada `primero` obtendrá el valor `1` porque ese es el valor en el índice `[0]` del array. La variable llamada `segundo` obtendrá el valor `2` del índice `[1]` en el array.
+
+<br>
+
+###### Acceso invalidó a los datos
+
+Veamos qué sucede si intentas acceder a un elemento de un array que está más allá del final del mismo. Supongamos que ejecutas este código, para obtener un índice de array del usuario:
+
+```rust
+use std::io;
+
+fn main() {
+    let arr = [1, 2, 3, 4, 5];
+
+    println!("Introduzca un índice del array.");
+
+    let mut index = String::new();
+
+    io::stdin()
+        .read_line(&mut index)
+        .expect("Error al leer la linea");
+
+    let index: usize = index
+        .trim()
+        .parse()
+        .expect("El indice asignado no es número");
+
+    let element = arr[index];
+
+    println!("El valor del indice {}: {}", index, element);
+}
+```
+
+<br>
+
+Este código se compila correctamente. Si ejecutas este código usando `cargo run` e ingresas `0`, `1`, `2`, `3` o `4`, el programa imprimirá el valor correspondiente en ese índice del array. Sí, en cambio, ingresas un número que sobrepasa el final del array, como 10, verás una salida como esta:
+
+```text
+thread 'main' panicked at 'index out of bounds: the len is 5 but the index is 10', src/main.rs:19:19
+note: run with RUST_BACKTRACE=1 environment variable to display a backtrace
+```
+
+<br>
+
+El programa resultó en un error en tiempo de ejecución en el punto de usar un valor no válido en la operación de indexación. El programa salió con un mensaje de error y no ejecutó la declaración final println!. Cuando intentas acceder a un elemento usando indexación, Rust verificará que el índice que has especificado sea menor que la longitud del array. Si el índice es mayor o igual a la longitud, Rust entrará en pánico. Esta verificación debe realizarse en tiempo de ejecución, especialmente en este caso, porque el compilador no puede saber qué valor ingresará un usuario cuando ejecute el código más adelante.
+
+Este es un ejemplo de los principios de seguridad de la memoria de Rust en acción. En muchos lenguajes de bajo nivel, este tipo de verificación no se realiza, y cuando proporcionas un índice incorrecto, se puede acceder a memoria no válida. Rust te protege contra este tipo de error al salir inmediatamente en lugar de permitir el acceso a la memoria y continuar. El Capítulo 9 analiza más sobre el manejo de errores en Rust y cómo puedes escribir código legible y seguro que no entre en pánico ni permita el acceso a memoria no válida.
