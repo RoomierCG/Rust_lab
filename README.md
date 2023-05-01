@@ -458,7 +458,6 @@ Ejemplo de Operaciones numéricas:
 
 ##### Tipo booleano
 
-
 En Rust, como en la mayoría de los lenguajes de programación, el tipo Booleano tiene dos valores posibles: `true` y `false`. Los valores Booleanos en Rust ocupan un byte de tamaño. Para especificar el tipo Booleano en Rust, se utiliza la palabra bool. Por ejemplo:
 
 ```rust:
@@ -467,6 +466,21 @@ En Rust, como en la mayoría de los lenguajes de programación, el tipo Booleano
         let z: bool = false; //Tiene explícitamente la anotación
     }
 ```
+
+<br>
+
+##### Tipo Character
+
+El tipo char de Rust es el tipo alfabético más primitivo del lenguaje. Estos son algunos ejemplos de declaración de valores char:
+
+```rust:
+    fn main() {
+    let c = 'z';
+    let z: char = 'ℤ'; // con anotación explícita de tipo
+}
+```
+
+Debemos especificar literales de caracteres en Rust usando comillas simples, mientras que los literales de cadenas usan comillas dobles. El tipo char en Rust tiene un tamaño de cuatro bytes y representa un valor escalar Unicode, lo que significa que puede representar mucho más que solo ASCII. Letras acentuadas, caracteres chinos, japoneses y coreanos, emojis y espacios de ancho cero son valores válidos para char en Rust. Los valores escalares Unicode van desde U+0000 hasta U+D7FF y desde U+E000 hasta U+10FFF. Sin embargo, el concepto de "carácter" no existe realmente en Unicode, por lo que tu intuición humana puede no coincidir con la definición de char en Rust. Profundizaremos en este tema más adelante
 
 <br>
 
